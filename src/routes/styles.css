@@ -14,34 +14,28 @@ div {
 span {
 	user-select: none;
 }
-@media (prefers-color-scheme: dark) {
-	::-webkit-scrollbar {
-		width: 10px;
-		height: 10px;
-		scroll-behavior: smooth;
-	}
 
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+	scroll-behavior: smooth;
+}
+@media (prefers-color-scheme: dark) {
 	::-webkit-scrollbar-track {
-		background: #e8e8e8;
+		background: #575757;
 	}
 
 	::-webkit-scrollbar-thumb {
-		background: #757575;
+		background: #000000;
 		border-radius: 100vh;
-		border: 3px solid #e8e8e8;
+		border: 3px solid #575757;
 	}
 
 	::-webkit-scrollbar-thumb:hover {
-		background: #bebebe;
+		background: #333333;
 	}
 }
 @media (prefers-color-scheme: light) {
-	::-webkit-scrollbar {
-		width: 10px;
-		height: 10px;
-		scroll-behavior: smooth;
-	}
-
 	::-webkit-scrollbar-track {
 		background: #e8e8e8;
 	}

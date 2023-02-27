@@ -60,23 +60,23 @@
 			</div>
 		{/each}
 
-		<div class="scrollable sm:w-full md:h-96 border-x border-blue-500  ml-14 lg:mr-14 relative">
+		<div class="scrollable sm:w-full md:h-96 border-x border-blue-300 dark:border-blue-900  ml-14 lg:mr-14 relative">
 			<div class="min-w-[32rem] w-full h-full flex flex-row">
 				{#each times as time, i}
 					<div
 						style="left: -0.5rem; top: calc({i} * (100% - 2rem) / {times.length -
 							1} + 2rem - 0.1rem); height: 0.1rem; width: calc(100% + 0.5rem)"
-						class="bg-blue-100 absolute flex items-center "></div>
+						class="bg-blue-100 dark:bg-blue-300 absolute flex items-center "></div>
 				{/each}
 
 				{#each data.days as day}
 					<div
 						style:width="{100 / data.days.length}%"
-						class=" flex flex-col border-x border-blue-500 relative"
+						class=" flex flex-col border-x border-blue-300 dark:border-blue-900 relative"
 					>
 						<div
-							style="height: {2}rem; background-image: linear-gradient(rgb(31 41 55), rgb(96 165 250));"
-							class="w-full border-b-2 border-blue-500 flex justify-center items-center font-extrabold"
+							style="height: {2}rem;"
+							class="gradient w-full border-b-2 border-blue-300 dark:border-blue-900 flex justify-center items-center font-extrabold"
 						>
 							{day}
 						</div>
@@ -146,6 +146,17 @@
 </div>
 
 <style>
+	@media (prefers-color-scheme: light) {
+		.gradient{
+			background-image: linear-gradient(white, rgb(147 197 253));
+		}
+	}
+	@media (prefers-color-scheme: dark) {
+		.gradient{
+			background-image: linear-gradient(rgb(31 41 55), rgb(30 58 138));
+		}
+	}
+
 	.scrollable {
 	}
 	@media (max-width: 768px) {

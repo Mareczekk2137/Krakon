@@ -3,6 +3,14 @@
 	import './styles.css';
 	import Header from './Header.svelte';
 	import Footer from './Footer.svelte';
+	import { onMount } from "svelte";
+
+
+	onMount(()=>{
+		let script = document.createElement('script');
+		script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBSYXYeDJp80BzZozHpcLng2g3GZQCgmPY&callback=initMap&v=weekly';
+		document.head.appendChild(script);
+	})
 </script>
 
 <div class="w-full dark:bg-gray-800 dark:text-gray-200 min-h-screen">

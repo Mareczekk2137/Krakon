@@ -1,0 +1,26 @@
+    let grouped = []
+    for (let i = 0; i < data.events.length; i++) {
+
+        let isGrouped = false;
+
+        grouped.forEach((obj) => {
+            obj.events.forEach((event) => {
+                // check if overlapping
+                if ((event.dateEnd > data.events[i].date && event.dateEnd < data.events[i].dateEnd) ||
+                  (event.date > data.events[i].date && event.date < event.dateEnd)) {
+                    obj.events.push(data.events[i]);
+                    isGrouped = true;
+                }
+            });
+        });
+
+        if (!isGrouped) {
+            grouped.push({
+                Yoffset: 1,
+                hours: 1,
+                events: [
+                    data.events[i]
+                ]
+            });
+        }
+    }

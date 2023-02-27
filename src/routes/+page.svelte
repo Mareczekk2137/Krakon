@@ -1,0 +1,341 @@
+<script>
+	import { fade } from 'svelte/transition';
+	import { onMount } from 'svelte';
+	let flames = [];
+	let frame;
+	let ready = false;
+
+	onMount(() => {
+		if (window.matchMedia('(max-width: 767px)').matches) {
+			// mobile-specific JavaScript code
+			let Mainpath = 100;
+			let frames = 200;
+
+			function loopMobile() {
+				frame = requestAnimationFrame(loopMobile);
+
+				flames = flames.map((emoji) => {
+					emoji.x += emoji.path / frames;
+					emoji.opacity -= origin.opacity / frames;
+					emoji.spread = emoji.deg * emoji.frame;
+					emoji.frame += 1 / frames;
+
+					if (emoji.x + 25 >= emoji.path) {
+						emoji.path = Mainpath * Math.random();
+						emoji.y = origin.y;
+						emoji.x = origin.x;
+						emoji.opacity = origin.opacity;
+						emoji.spread = 0;
+						emoji.frame = 0;
+						emoji.size = 0.75 + Math.random() / 2;
+					}
+
+					return emoji;
+				});
+			}
+
+			let origin = {
+				x: 0,
+				y: 0,
+				opacity: 0.7
+			};
+
+			flames = new Array(100).fill().map((_, i) => {
+				return {
+					path: Mainpath * Math.random(),
+					x: origin.x,
+					y: origin.y,
+					size: 0.75 + Math.random() / 2,
+					currentRotation: 0,
+					spread: 0,
+					deg: (Math.random() - 0.5) * 20,
+					opacity: origin.opacity,
+					frame: 0
+				};
+			});
+
+			loopMobile();
+		} else {
+			// desktop-specific JavaScript code
+			let Mainpath = 200;
+			let frames = 400;
+			function loop() {
+				frame = requestAnimationFrame(loop);
+
+				flames = flames.map((emoji) => {
+					emoji.x += emoji.path / frames;
+					emoji.opacity -= origin.opacity / frames;
+					emoji.spread = emoji.deg * emoji.frame;
+					emoji.currentRotation += emoji.rotation * emoji.frame;
+					emoji.frame += 1 / frames;
+
+					if (emoji.x + 25 > emoji.path) {
+						emoji.path = Mainpath * Math.random();
+						emoji.y = origin.y;
+						emoji.x = origin.x;
+						emoji.opacity = origin.opacity;
+						emoji.spread = 0;
+						emoji.frame = 0;
+						emoji.size = 0.75 + Math.random() / 2;
+						emoji.rotation = (Math.random() - 0.5) * 4;
+						emoji.currentRotation = 0;
+					}
+
+					return emoji;
+				});
+			}
+			let origin = {
+				x: 0,
+				y: 0,
+				opacity: 0.7
+			};
+
+			flames = new Array(100).fill().map((_, i) => {
+				return {
+					path: Mainpath * Math.random(),
+					x: origin.x,
+					y: origin.y,
+					size: 0.75 + Math.random() / 2,
+					rotation: (Math.random() - 0.5) * 4,
+					currentRotation: 0,
+					spread: 0,
+					deg: (Math.random() - 0.5) * 20,
+					opacity: origin.opacity,
+					frame: 0
+				};
+			});
+
+			loop();
+		}
+
+		ready = true;
+		return () => cancelAnimationFrame(frame);
+	});
+	let style = '';
+
+	function mouseEnter() {
+		if (style === '') {
+			style = 'onHover';
+			setTimeout(() => {
+				style = '';
+			}, 1500);
+		}
+	}
+</script>
+
+<div class="flex w-full h-full flex-col items-center">
+	<div class=" h-24">
+		{#if ready}
+			<svg
+				on:mouseenter={mouseEnter}
+				on:mousedown={mouseEnter}
+				in:fade={{ duration: 3000 }}
+				width="100%"
+				height="100%"
+				id="logo_OUTLINE"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 1920.71 350.64"
+				overflow="visible"
+				><defs
+					><style>
+						.cls-1 {
+							fill: #010200;
+						}
+
+						.cls-2 {
+							fill: none;
+							stroke: #000;
+							stroke-linecap: round;
+							stroke-linejoin: round;
+							stroke-width: 0.71px;
+						}
+					</style></defs
+				>
+
+				<g class="group">
+					<path class="cls-1" d="M1920.35,88.43l-54.9,40.74V326.64l-47.65-69.86V88.43Z" /><polygon
+						class="cls-1"
+						points="1681.73 88.43 1859.8 349.4 1817.8 349.4 1702.93 181.05 1668.23 130.21 1668.23 88.43 1681.73 88.43"
+					/><polygon
+						class="cls-1"
+						points="1702.93 181.05 1702.93 349.4 1668.23 349.4 1668.23 130.21 1702.93 181.05"
+					/>
+					<g id="dragon" class="{style} dragon relative">
+						<path
+							class="cls-1"
+							d="M1598.82,175.88h-34.7a139.13,139.13,0,0,0-31.83-88.42.68.68,0,0,0-.13-.18c-2.71-3.26-5.56-6.42-8.58-9.44a128.32,128.32,0,0,0,18.64-30.15A173.43,173.43,0,0,1,1598.82,175.88Z"
+						/><path
+							class="cls-1"
+							d="M1390.35,312.37v0a55.07,55.07,0,0,1,4.52-18.88c-.11,0-.18,0-.28-.07,19.22-41.54-43.45-52.06-43-91.27a41.62,41.62,0,0,0,40.85,24.36A69.74,69.74,0,0,0,1413.68,248c15.16,10,33.49,14.33,52,17.77v0A103.92,103.92,0,0,0,1514.14,280c2.64.1,5.31.14,8,0,15-.9,41.33-.45,41.19-21.13a69.4,69.4,0,0,1,28.21,55.84c-20.3,14.61-54.17,5.72-76.07,9.75-31.2,17.77-62.36,31.65-113.55,23.39a53.33,53.33,0,0,1-11.45-28.42A55.3,55.3,0,0,1,1390.35,312.37ZM1468.23,284c-14,20.13,22.25,7.29,30.71,4.62A103.54,103.54,0,0,1,1468.23,284Z"
+						/><path
+							class="cls-1"
+							d="M1585.39,343.26c-1,2.08-2,4.16-3.16,6.14h-82.11C1523.31,322.51,1558.77,321,1585.39,343.26Z"
+						/><path
+							class="cls-1"
+							d="M1550.83,135.49c15.16,47.4,2.84,101.71-36.37,137.56a100.49,100.49,0,0,1-14.16-1.63c57-44.11,62.22-130.14,11.31-181q3.86-3.54,7.39-7.36A130.41,130.41,0,0,1,1550.83,135.49Z"
+						/><path
+							class="cls-1"
+							d="M1536.74,42.9c-.59,1.42-1.22,2.81-1.84,4.16a121.46,121.46,0,0,1-110.15,70.28c-111.2-1.57-143.64,157.34-41.2,199.75,0,.94.11,1.88.21,2.81a60.24,60.24,0,0,0,8.64,26.34,173.47,173.47,0,0,1-140.51-176.36C1334.45,139,1300.19,49.52,1425.3,44H1503V20.72A175.06,175.06,0,0,1,1536.74,42.9Z"
+						/><path
+							class="cls-1"
+							d="M1496.06,2.36V37.07H1425.3c-127,5.83-100.64,94.11-173,125.28C1265.14,31.34,1379.42-9.71,1496.06,2.36Z"
+						/><path
+							class="cls-1"
+							d="M1465.66,265.73v0c-18.49-3.44-36.82-7.78-52-17.77l.07-.11c-8.79-18.08-26.35-31.51-27.42-53.2a56,56,0,0,0,39,28.35A104.38,104.38,0,0,0,1465.66,265.73Z"
+						/><path
+							class="cls-1"
+							d="M1394.59,293.39c.1,0,.17,0,.28.07a55.07,55.07,0,0,0-4.52,18.88,95.67,95.67,0,0,1-56.49-56.5A120.34,120.34,0,0,0,1394.59,293.39Z"
+						/>
+						<path
+							class="cls-2"
+							d="M1425.3,37.07h70.76V2.36c-116.64-12.07-230.92,29-243.76,160C1324.66,131.18,1298.28,42.9,1425.3,37.07Z"
+						/><path
+							class="cls-2"
+							d="M1425.3,44H1503V20.72a175.06,175.06,0,0,1,33.74,22.18c-.59,1.42-1.22,2.81-1.84,4.16a121.46,121.46,0,0,1-110.15,70.28c-111.2-1.57-143.64,157.34-41.2,199.75,0,.94.11,1.88.21,2.81a60.24,60.24,0,0,0,8.64,26.34,173.47,173.47,0,0,1-140.51-176.36C1334.45,139,1300.19,49.52,1425.3,44"
+						/><path
+							class="cls-2"
+							d="M1542.22,47.69a173.43,173.43,0,0,1,56.6,128.19h-34.7a139.13,139.13,0,0,0-31.83-88.42.68.68,0,0,0-.13-.18c-2.71-3.26-5.56-6.42-8.58-9.44A128.32,128.32,0,0,0,1542.22,47.69Z"
+						/><path
+							class="cls-2"
+							d="M1465.66,265.77c-18.49-3.44-36.82-7.78-52-17.77a69.74,69.74,0,0,1-21.24-21.52,41.62,41.62,0,0,1-40.85-24.36c-.45,39.21,62.22,49.73,43,91.27"
+						/><path
+							class="cls-2"
+							d="M1582.23,349.4h-82.11c23.19-26.89,58.65-28.39,85.27-6.14C1584.42,345.34,1583.38,347.42,1582.23,349.4Z"
+						/><path
+							class="cls-2"
+							d="M1550.83,135.49A130.41,130.41,0,0,0,1519,83.08q-3.54,3.81-7.39,7.36c50.91,50.84,45.64,136.87-11.31,181a100.49,100.49,0,0,0,14.16,1.63C1553.67,237.2,1566,182.89,1550.83,135.49Z"
+						/><path
+							class="cls-2"
+							d="M1591.53,314.7a69.4,69.4,0,0,0-28.21-55.84c.14,20.68-26.17,20.23-41.19,21.13-2.68.11-5.35.07-8,0A104.72,104.72,0,0,1,1425.3,223a56,56,0,0,1-39-28.35c1.07,21.69,18.63,35.12,27.42,53.2"
+						/><path
+							class="cls-2"
+							d="M1390.35,312.37a55.3,55.3,0,0,0,.11,7.05,53.33,53.33,0,0,0,11.45,28.42c51.19,8.26,82.35-5.62,113.55-23.39,21.9-4,55.77,4.86,76.07-9.75"
+						/><path
+							class="cls-2"
+							d="M1390.35,312.34a95.67,95.67,0,0,1-56.49-56.5,120.34,120.34,0,0,0,60.73,37.55c.1,0,.17,0,.28.07a55.07,55.07,0,0,0-4.52,18.88"
+						/><line class="cls-2" x1="1390.35" y1="312.34" x2="1390.35" y2="312.37" /><path
+							class="cls-2"
+							d="M1390.49,312.41s-.1,0-.14,0"
+						/><path
+							class="cls-2"
+							d="M1498.94,288.57c-8.46,2.67-44.73,15.51-30.71-4.62A103.54,103.54,0,0,0,1498.94,288.57Z"
+						/>
+					</g>
+
+					<polygon
+						class="cls-1"
+						points="1182.37 178.49 1182.37 259.69 1165.02 259.69 1110.12 219.19 1165.02 178.49 1182.37 178.49"
+					/><polygon
+						class="cls-1"
+						points="1182.37 88.43 1006.01 219.26 1182.37 349.4 1123.93 349.4 972.76 237.86 947.67 219.33 972.76 200.7 1124.11 88.43 1182.37 88.43"
+					/><polygon
+						class="cls-1"
+						points="972.76 200.7 947.67 219.33 938.06 219.33 938.06 90.02 972.76 90.02 972.76 200.7"
+					/><polygon
+						class="cls-1"
+						points="972.76 237.86 972.76 349.4 938.06 349.4 938.06 219.33 947.67 219.33 972.76 237.86"
+					/><path
+						class="cls-1"
+						d="M757.42,88.43l111.23,261H830.93L734.48,123.13,719.7,88.43Z"
+					/><polygon
+						class="cls-1"
+						points="747.12 332.05 747.12 349.4 702.56 349.4 702.56 332.05 724.84 279.61 747.12 332.05"
+					/><path
+						class="cls-1"
+						d="M719.7,88.43l14.78,34.7H715.19L618.71,349.4H581l111.26-261Z"
+					/><path
+						class="cls-1"
+						d="M448.18,240.36l63.4,109H471.43L410.49,244.6H348.78V209.89c36.41-2.88,115.05,15.9,117.3-41.26,2.43-61.22-79.71-43.07-117.3-45.5V88.43h71.08C507.87,84.33,531.92,212.46,448.18,240.36Z"
+					/><path class="cls-1" d="M348.78,244.6V349.4h-34.7v-261h34.7V244.6Z" /><polygon
+						class="cls-1"
+						points="244.67 88.43 68.31 219.26 244.67 349.4 186.19 349.4 35.06 237.86 9.97 219.33 35.06 200.7 186.4 88.43 244.67 88.43"
+					/><polygon
+						class="cls-1"
+						points="35.06 200.7 9.97 219.33 0.35 219.33 0.35 90.02 35.06 90.02 35.06 200.7"
+					/><polygon
+						class="cls-1"
+						points="35.06 237.86 35.06 349.4 0.35 349.4 0.35 219.33 9.97 219.33 35.06 237.86"
+					/><line class="cls-2" x1="972.76" y1="200.7" x2="972.76" y2="90.02" /><line
+						class="cls-2"
+						x1="1702.93"
+						y1="181.05"
+						x2="1702.93"
+						y2="349.4"
+					/><polygon
+						class="cls-2"
+						points="1165.02 178.49 1110.12 219.19 1165.02 259.69 1182.37 259.69 1182.37 178.49 1165.02 178.49"
+					/><polyline
+						class="cls-2"
+						points="972.76 90.02 938.06 90.02 938.06 219.33 938.06 349.4 972.76 349.4 972.76 237.86"
+					/><polygon
+						class="cls-2"
+						points="1182.37 88.43 1124.11 88.43 972.76 200.7 947.67 219.33 972.76 237.86 1123.93 349.4 1182.37 349.4 1006.01 219.26 1182.37 88.43"
+					/><path class="cls-2" d="M1817.8,88.43V256.78l47.65,69.86V129.17l54.9-40.74Z" /><polyline
+						class="cls-2"
+						points="1702.93 349.4 1668.23 349.4 1668.23 130.21 1668.23 88.43 1681.73 88.43 1859.8 349.4 1817.8 349.4 1702.93 181.05 1668.23 130.21"
+					/><line class="cls-2" x1="35.06" y1="200.7" x2="35.06" y2="90.02" /><polyline
+						class="cls-2"
+						points="35.06 90.02 0.35 90.02 0.35 219.33 0.35 349.4 35.06 349.4 35.06 237.86"
+					/><polygon
+						class="cls-2"
+						points="244.67 88.43 186.4 88.43 35.06 200.7 9.97 219.33 35.06 237.86 186.19 349.4 244.67 349.4 68.31 219.26 244.67 88.43"
+					/><path
+						class="cls-2"
+						d="M719.7,88.43l14.78,34.7L830.93,349.4h37.72l-111.23-261H692.25L581,349.4h37.72l96.48-226.27h19.29"
+					/><path
+						class="cls-2"
+						d="M348.78,209.89c36.41-2.88,115.05,15.9,117.3-41.26,2.43-61.22-79.71-43.07-117.3-45.5V349.4h-34.7v-261H419.86c88-4.1,112.06,124,28.32,151.93l63.4,109H471.43L410.49,244.6H348.78"
+					/><polygon
+						class="cls-2"
+						points="702.56 349.4 702.56 332.05 724.84 279.61 747.12 332.05 747.12 349.4 702.56 349.4"
+					/><line class="cls-2" x1="348.78" y1="123.13" x2="348.78" y2="88.43" /></g
+				></svg
+			>
+		{/if}
+		<div
+			style="left: {0}px; top: {0}px;"
+			class=" absolute w-full h-full flex items-center pointer-events-none"
+		>
+			<div
+				style="aspect-ratio: 1920.71 / 350.64"
+				class=" group w-full pointer-events-none relative"
+			>
+				<div style="left: 65%; top: 0; width: 18%" class="absolute {style} h-full">
+					{#each flames as flame}
+						<span
+							style="left: calc(95% + {flame.x}px); top: calc(90% + {flame.y -
+								flame.spread *
+									4}px); opacity: {flame.opacity}; transform: rotate({flame.currentRotation}deg) scale({flame.size}) translate(-50%);"
+							class="flame absolute bg-orange-400 w-2 h-2 pointer-events-none"></span>
+					{/each}
+				</div>
+			</div>
+		</div>
+	</div>
+	<p class="text-center">Krakon to festiwal larpowy odbywajacy sie kazdego roku</p>
+</div>
+
+<style>
+	.flame {
+		transform-origin: center;
+		transform-box: fill-box;
+	}
+	.group {
+		transform: scale(0.75);
+		transform-origin: center;
+		transform-box: fill-box;
+	}
+	.dragon {
+		transform: rotate(0);
+		transform-origin: center;
+		transform-box: fill-box;
+	}
+	.onHover {
+		animation: hover 1.5s ease infinite;
+	}
+	@keyframes hover {
+		to {
+			transform: rotate(-360deg);
+		}
+	}
+</style>

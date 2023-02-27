@@ -1,0 +1,82 @@
+html {
+	scroll-behavior: smooth;
+}
+
+a {
+	text-align: center;
+	user-select: none;
+	cursor: pointer;
+}
+div {
+	position: relative;
+	user-select: none;
+}
+span {
+	user-select: none;
+}
+@media (prefers-color-scheme: dark) {
+	::-webkit-scrollbar {
+		width: 10px;
+		height: 10px;
+		scroll-behavior: smooth;
+	}
+
+	::-webkit-scrollbar-track {
+		background: #e8e8e8;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: #757575;
+		border-radius: 100vh;
+		border: 3px solid #e8e8e8;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: #bebebe;
+	}
+}
+@media (prefers-color-scheme: light) {
+	::-webkit-scrollbar {
+		width: 10px;
+		height: 10px;
+		scroll-behavior: smooth;
+	}
+
+	::-webkit-scrollbar-track {
+		background: #e8e8e8;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: #757575;
+		border-radius: 100vh;
+		border: 3px solid #e8e8e8;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: #bebebe;
+	}
+}
+
+.containerFGSDG {
+	display: flex;
+}
+.containerFGSDG > * {
+	position: relative;
+	transition: all 0.3s ease;
+	flex: 1;
+}
+.containerFGSDG > *.hovered {
+	flex: 1;
+}
+.containerFGSDG > *:hover {
+	flex: 2 !important;
+}
+
+body {
+	overflow-x: hidden;
+	font-family: 'Lato Light', 'Courier New';
+}
+@font-face {
+	font-family: 'Lato Light';
+	src: url('/src/lib/font/Lato-Light.ttf') format('ttf');
+}

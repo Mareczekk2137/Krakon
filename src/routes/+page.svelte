@@ -8,8 +8,8 @@
 	onMount(() => {
 		if (window.matchMedia('(max-width: 767px)').matches) {
 			// mobile-specific JavaScript code
-			let Mainpath = 100;
-			let frames = 200;
+			let Mainpath = 200;
+			let frames = 100;
 
 			function loopMobile() {
 				frame = requestAnimationFrame(loopMobile);
@@ -20,7 +20,7 @@
 					emoji.spread = emoji.deg * emoji.frame;
 					emoji.frame += 1 / frames;
 
-					if (emoji.x + 25 >= emoji.path) {
+					if (emoji.x + 50 >= emoji.path) {
 						emoji.path = Mainpath * Math.random();
 						emoji.y = origin.y;
 						emoji.x = origin.x;
@@ -40,7 +40,7 @@
 				opacity: 0.7
 			};
 
-			flames = new Array(100).fill().map((_, i) => {
+			flames = new Array(33).fill().map((_, i) => {
 				return {
 					path: Mainpath * Math.random(),
 					x: origin.x,
@@ -58,7 +58,7 @@
 		} else {
 			// desktop-specific JavaScript code
 			let Mainpath = 200;
-			let frames = 400;
+			let frames = 200;
 			function loop() {
 				frame = requestAnimationFrame(loop);
 
@@ -69,7 +69,7 @@
 					emoji.currentRotation += emoji.rotation * emoji.frame;
 					emoji.frame += 1 / frames;
 
-					if (emoji.x + 25 > emoji.path) {
+					if (emoji.x + 50 > emoji.path) {
 						emoji.path = Mainpath * Math.random();
 						emoji.y = origin.y;
 						emoji.x = origin.x;

@@ -3,16 +3,16 @@
 	import './styles.css';
 	import Header from './Header.svelte';
 	import Footer from './Footer.svelte';
-	import { onMount } from "svelte";
 
 
-	onMount(()=>{
-		let script = document.createElement('script');
-		script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBSYXYeDJp80BzZozHpcLng2g3GZQCgmPY&callback=initMap&v=weekly';
-		document.head.appendChild(script);
-	})
 </script>
+<svelte:head>
+	<title>Krak-on</title>
+	<link rel="manifest" href="/src/manifest.json" />
+	<meta name="description" content="oficjalna strona Festiwalu Larpowego w Krakowie">
+	<meta name="theme-color" content="#000000"/>
 
+</svelte:head>
 <div class="w-full dark:bg-gray-800 dark:text-gray-200 min-h-screen">
 	<Header />
 

@@ -13,7 +13,7 @@
 	<meta name="theme-color" content="#000000"/>
 
 </svelte:head>
-<div class="w-full dark:bg-gray-800 dark:text-gray-200 min-h-screen">
+<div class="w-full dark:bg-gray-800 dark:text-gray-200 min-h-screen overflow-x-hidden">
 	<Header />
 
 	<main class="pt-16 main">

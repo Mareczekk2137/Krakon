@@ -13,3 +13,4 @@ git clone https://github.com/Mareczekk2137/Krakon
 cd ./Krakon
 npm install
 npm run build
+w

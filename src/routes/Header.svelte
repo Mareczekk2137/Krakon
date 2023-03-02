@@ -5,7 +5,7 @@
 <header
 	class="bg-white shadow-gray-100 dark:shadow-black dark:bg-gray-900 fixed inset-x-0 h-16 justify-center sm:justify-start flex content-center items-center font-bold shadow-md top-0 z-50 lg:px-10 sm:px-10 gap-8 md:gap-8 lg:gap-8"
 >
-	<a href="/" class="h-12">
+	<a href="/" class="h-12 hover:scale-90">
 		<Logo />
 	</a>
 	<div class="flex gap-x-4 md:gap-x-8 ">

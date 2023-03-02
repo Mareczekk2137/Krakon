@@ -74,3 +74,8 @@ body {
 	font-family: 'Lato Light';
 	src: url('/src/lib/font/Lato-Light.ttf') format('ttf');
 }
+a{
+	-webkit-tap-highlight-color: transparent; /* for iOS devices */
+	tap-highlight-color: transparent; /* for Android and other devices */
+
+}

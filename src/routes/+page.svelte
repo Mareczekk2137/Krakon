@@ -303,7 +303,7 @@
 				<div style="left: 65%; top: 0; width: 18%" class="absolute {style} h-full">
 					{#each flames as flame}
 						<span
-							style="left: calc(95% + {flame.x}px); top: calc(90% + {flame.y -
+							style="left: calc(95% + {flame.x}px); top: calc(88% + {flame.y -
 								flame.spread *
 									4}px); opacity: {flame.opacity}; transform: rotate({flame.currentRotation}deg) scale({flame.size}) translate(-50%);"
 							class="flame absolute bg-orange-400 w-2 h-2 pointer-events-none"></span>

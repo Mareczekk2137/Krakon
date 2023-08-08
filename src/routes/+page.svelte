@@ -323,7 +323,6 @@
 	.group {
 		transform: scale(0.75);
 		transform-origin: center;
-		transform-box: fill-box;
 	}
 	.dragon {
 		transform: rotate(0);

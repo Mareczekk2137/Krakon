@@ -1,0 +1,14 @@
+.DS_Store
+node_modules
+/build
+/.svelte-kit
+.idea
+/package
+build/.env
+.env.*
+!.env.example
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+updateKrakon.bat
+.cert
+.key

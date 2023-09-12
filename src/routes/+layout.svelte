@@ -11,6 +11,7 @@
 	<link rel="manifest" href="/src/manifest.json" />
 	<meta name="description" content="oficjalna strona Festiwalu Larpowego w Krakowie">
 	<meta name="theme-color" content="#000000"/>
+	<link rel="icon" href="/favicon.png" type="image/x-icon">
 
 </svelte:head>
 <div class="w-full dark:bg-gray-800 dark:text-gray-200 min-h-screen overflow-x-hidden">

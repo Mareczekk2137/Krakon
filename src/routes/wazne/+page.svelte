@@ -1,39 +1,4 @@
 <script>
-	import { onMount } from 'svelte';
-	let map;
-
-	function initMap() {
-		const myLatLng = {
-			lat: 50.061771392822266,
-			lng: 19.94222640991211
-		};
-		map = new google.maps.Map(document.getElementById("gmp-map"), {
-			zoom: 14,
-			center: myLatLng,
-			fullscreenControl: false,
-			zoomControl: true,
-			streetViewControl: false
-		});
-		new google.maps.Marker({
-			position: myLatLng,
-			map,
-			title: "Krakon"
-		});
-	}
-
-	onMount(() => {
-		let scriptUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBSYXYeDJp80BzZozHpcLng2g3GZQCgmPY&callback=initMap&libraries=&v=weekly';
-		let scriptExists = document.querySelector('script[src="' + scriptUrl + '"]');
-		if(!scriptExists){
-			let script = document.createElement('script');
-			script.src = scriptUrl;
-			document.head.appendChild(script);
-		}else {
-			initMap()
-		}
-		window.initMap = initMap;
-	});
-
 	let wazne = "Festiwal Larpowy Krak-ON odbędzie się w Krakowie w dniach 17-19.11.2023\n" +
 		"\n" +
 		"UWAGA Piątkowy blok larpowy odbędzie się w siedzibie Fundacji Edukacyjnej Nausika\n" +
@@ -72,7 +37,7 @@
 		"- możliwość uczestnictwa os. niepełnoletnich zależy od konkretnego larpa, będzie taka informacja w opisie oraz przy zapisach."
 </script>
 
-<div class="mt-8">
+<div>
 	<div class="text-2xl font-extrabold">Dojazd:</div>
 	<p>larpy odbywają sie na ul. Świętego Krzyża 11/1, 31-028 Kraków</p>
 	<iframe

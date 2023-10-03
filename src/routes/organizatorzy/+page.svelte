@@ -6,7 +6,7 @@
 
 <div
 	style="grid-template-columns: repeat(auto-fit, minmax(0, 28rem));"
-	class="mt-8 grid justify-items-center justify-center"
+	class="grid justify-items-center justify-center gap-y-16"
 >
 	{#each data.items as user, i}
 		<div class="flex flex-col items-center max-w-[24rem]">
@@ -21,7 +21,7 @@
 			<p class=" py-4 text-center text-sm ">
 				{user.rola}
 			</p>
-			<p class=" text-center text-xs pb-12">
+			<p class=" text-center text-xs">
 				{user.opis}
 			</p>
 		</div>

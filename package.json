@@ -1,6 +1,6 @@
 {
-	"name": "the-complex",
-	"version": "0.0.1",
+	"name": "krakon",
+	"version": "0.1.0",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",

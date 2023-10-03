@@ -1,14 +1,14 @@
 <script>
 	import Card from '$lib/Card.svelte';
-	import TextWithBlur from "$lib/TextWithBlur.svelte";
-	import Anchor from "$lib/Anchor.svelte";
-	import { Vector2 } from "three";
+	import TextWithBlur from '$lib/TextWithBlur.svelte';
+	import Anchor from '$lib/Anchor.svelte';
+	import { Vector2 } from 'three';
 
 	export let data;
 
 	let times = [];
-	let timeRange = new Vector2(8, 24)
-	let timeCount = timeRange.y - timeRange.x
+	let timeRange = new Vector2(8, 24);
+	let timeCount = timeRange.y - timeRange.x;
 	for (let i = timeRange.x; i <= timeRange.y; i += 2) {
 		times.push(String(i) + ':00');
 	}
@@ -25,7 +25,7 @@
 	console.log(data.events);
 
 	function dateToHours(date) {
-		return (date.getHours() + date.getMinutes() / 60 + date.getSeconds() / 3600) - timeRange.x -1;
+		return date.getHours() + date.getMinutes() / 60 + date.getSeconds() / 3600 - timeRange.x - 1;
 	}
 
 	data.days.forEach((day) => {
@@ -42,73 +42,76 @@
 		dayToEvent[day].push(v);
 	});
 	for (let [_, events] of Object.entries(dayToEvent)) {
-		console.log(events)
+		console.log(events);
 		events.forEach((v) => {
-			let overlapping = [v]
-			let bottomOverlapping = [v]
-			let topOverlapping = [v]
+			let overlapping = [v];
+			let bottomOverlapping = [v];
+			let topOverlapping = [v];
 			events.forEach((ev) => {
-				if (ev === v) {return}
-				if ((ev.top <= v.top+v.height) && (v.top+v.height < ev.top+ev.height)) {
-					console.log("are overlapping")
-					overlapping.push(ev)
-					bottomOverlapping.push(ev)
+				if (ev === v) {
+					return;
 				}
-				if ((ev.top <= v.top) && (v.top < ev.top+ev.height)) {
-					console.log("are overlapping")
-					overlapping.push(ev)
-					topOverlapping.push(ev)
+				if (ev.top <= v.top + v.height && v.top + v.height < ev.top + ev.height) {
+					console.log('are overlapping');
+					overlapping.push(ev);
+					bottomOverlapping.push(ev);
 				}
-			})
-			v.overlapping = overlapping
-			v.topOverlapping = topOverlapping
-			v.bottomOverlapping = bottomOverlapping
-		})
+				if (ev.top <= v.top && v.top < ev.top + ev.height) {
+					console.log('are overlapping');
+					overlapping.push(ev);
+					topOverlapping.push(ev);
+				}
+			});
+			v.overlapping = overlapping;
+			v.topOverlapping = topOverlapping;
+			v.bottomOverlapping = bottomOverlapping;
+		});
 
-		let leftSet = []
+		let leftSet = [];
 		events.forEach((v) => {
-			let columns = Math.max(v.topOverlapping.length, v.bottomOverlapping.length)
-			console.log(columns)
-			let width = 100/columns
-			let overlappingWithLeftSet = 0
+			let columns = Math.max(v.topOverlapping.length, v.bottomOverlapping.length);
+			console.log(columns);
+			let width = 100 / columns;
+			let overlappingWithLeftSet = 0;
 			leftSet.forEach((ev) => {
 				if (v.overlapping.indexOf(ev) !== -1) {
-					overlappingWithLeftSet += 1
+					overlappingWithLeftSet += 1;
 				}
-			})
-			v.left = width*overlappingWithLeftSet
-			v.width = width
-			leftSet.push(v)
-		})
+			});
+			v.left = width * overlappingWithLeftSet;
+			v.width = width;
+			leftSet.push(v);
+		});
 	}
 
 	console.log(dayToEvent);
 	//style="aspect-ratio: 1 / .3"
 </script>
 
-<div class="w-full h-full text-center pt-16">
-	{#each data.days as day}
-		<div class=" w-full flex flex-row relative h-64 md:h-96 mb-16">
-			{#each times as time, i}
-				<div
-					style="top: calc({i} * (100% - 2rem) / {times.length - 1} + 1.375rem)"
-					class="absolute text-sm text-right w-12 flex items-center"
-				>
-					{time}
-				</div>
-			{/each}
+<div class="w-full h-full text-center ">
+	<div class="flex flex-col justify-center gap-y-16">
+		{#each data.days as day}
+			<div class=" w-full flex flex-row relative h-64 md:h-96">
+				{#each times as time, i}
+					<div
+						style="top: calc({i} * (100% - 2rem) / {times.length - 1} + 1.375rem)"
+						class="absolute text-sm text-right w-12 flex items-center"
+					>
+						{time}
+					</div>
+				{/each}
 
-			<div
-				class="w-full md:h-96 border-x border-blue-300 dark:border-blue-900  ml-14 lg:mr-14 relative"
-			>
-				<div class="w-full h-full flex flex-row">
-					{#each times as time, i}
-						<div
-							style="left: -0.5rem; top: calc({i} * (100% - 2rem) / {times.length -
-							1} + 2rem - 0.1rem); height: 0.1rem; width: calc(100% + 0.5rem)"
-							class="bg-blue-100 dark:bg-blue-300 absolute flex items-center "
-						/>
-					{/each}
+				<div
+					class="w-full md:h-96 border-x border-blue-300 dark:border-blue-900  ml-14 lg:mr-14 relative"
+				>
+					<div class="w-full h-full flex flex-row">
+						{#each times as time, i}
+							<div
+								style="left: -0.5rem; top: calc({i} * (100% - 2rem) / {times.length -
+								1} + 2rem - 0.1rem); height: 0.1rem; width: calc(100% + 0.5rem)"
+								class="bg-blue-100 dark:bg-blue-300 absolute flex items-center "
+							/>
+						{/each}
 
 						<div
 							style:width="{100}%"
@@ -128,7 +131,12 @@
 									>
 										<div class="aspect-1 max-h-full max-w-full block">
 											<Card delay={ii * 100}>
-												<p style="transform: translate(-50%, -50%)" class="dark:text-white text-black font-bold whitespace-nowrap absolute -top-2 left-1/2 ">{schedule.name}</p>
+												<p
+													style="transform: translate(-50%, -50%)"
+													class="dark:text-white text-black font-bold whitespace-nowrap absolute -top-2 left-1/2 "
+												>
+													{schedule.name}
+												</p>
 												<div class="h-full w-full overflow-clip rounded-md">
 													<img src={schedule.icon} class="w-full h-full object-cover" alt="" />
 													<a href="#{schedule.id}" class="absolute left-0 top-0 w-full h-full" />
@@ -139,17 +147,18 @@
 								{/each}
 							</div>
 						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	{/each}
+		{/each}
+	</div>
 
-	<div class="w-full pb-16 mt-16 px-4 md:px-16 lg:px-16 text-left relative">
+	<div class="w-full px-4 md:px-16 lg:px-16 text-left relative">
 		{#each data.events as event, ii}
-			<div id={event.id} class="pt-8">
+			<div id={event.id} class="pt-32">
 				<h1 class=" text-2xl font-semibold">{event.name}</h1>
 				<img src={event.icon} class="w-full md:w-1/2" alt="" />
-				<p class=" my-4 break-all whitespace-pre-wrap">{event.description}</p>
+				<p class=" my-4 whitespace-pre-wrap">{event.description}</p>
 			</div>
 		{/each}
 	</div>

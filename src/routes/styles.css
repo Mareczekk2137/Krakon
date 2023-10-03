@@ -2,11 +2,6 @@ html {
 	scroll-behavior: smooth;
 }
 
-a {
-	text-align: center;
-	user-select: none;
-	cursor: pointer;
-}
 div {
 	position: relative;
 	user-select: none;
@@ -77,5 +72,11 @@ body {
 a{
 	-webkit-tap-highlight-color: transparent; /* for iOS devices */
 	tap-highlight-color: transparent; /* for Android and other devices */
-
+	text-align: center;
+	user-select: none;
+	cursor: pointer;
+	font-weight: bold;
+}
+p{
+	white-space: pre-wrap;
 }

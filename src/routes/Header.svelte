@@ -14,7 +14,7 @@
 			<a href="/wazne" class="u_hover_sparkle inline-block"> ważne </a>
 		</div>
 		<div class="flex gap-x-4 md:gap-x-8 flex-col sm:flex-row">
-			<a href="/blog" class="u_hover_sparkle"> blog </a>
+			<!--<a href="/blog" class="u_hover_sparkle"> blog </a>-->
 			<a href="/organizatorzy" class="u_hover_sparkle"> organizatorzy </a>
 		</div>
 	</div>

@@ -1,145 +1,155 @@
 <script>
 	import Card from '$lib/Card.svelte';
-	import ImageView from '$lib/ImageView.svelte';
+	import TextWithBlur from "$lib/TextWithBlur.svelte";
+	import Anchor from "$lib/Anchor.svelte";
+	import { Vector2 } from "three";
 
 	export let data;
 
 	let times = [];
-	for (let i = 0; i <= 24; i += 2) {
+	let timeRange = new Vector2(8, 24)
+	let timeCount = timeRange.y - timeRange.x
+	for (let i = timeRange.x; i <= timeRange.y; i += 2) {
 		times.push(String(i) + ':00');
 	}
-	let dayEvents = [[], [], [], [], [], [], []];
-	data.shedule.forEach((e) => {
-		let StartDates = [],
-			EndDates = [];
-		e.expand.events.forEach((event, i) => {
-			StartDates.push(new Date(event.date));
-			EndDates.push(new Date(event.dateEnd));
-			event.hover = false;
-			e.expand.events[i] = event;
-		});
+	let dayToString = {
+		1: 'Poniedzialek',
+		2: 'Wtorek',
+		3: 'Sroda',
+		4: 'Czwartek',
+		5: 'Piatek',
+		6: 'Sobota',
+		0: 'Niedziela'
+	};
+	let dayToEvent = {};
+	console.log(data.events);
 
-		let StartDate = new Date(Math.min(...StartDates));
-		let EndDate = new Date(Math.max(...EndDates));
+	function dateToHours(date) {
+		return (date.getHours() + date.getMinutes() / 60 + date.getSeconds() / 3600) - timeRange.x -1;
+	}
 
-		e.Yoffset = StartDate.getHours() + StartDate.getMinutes() / 60 - 1;
-		e.hours =
-			EndDate.getHours() +
-			EndDate.getMinutes() / 60 -
-			(StartDate.getHours() + StartDate.getMinutes() / 60);
-		let day = StartDate.getDay();
-		if (day === 0) {
-			day = 6;
-		} else {
-			day -= 1;
-		}
-		e.hover = false;
-		dayEvents[day].push(e);
+	data.days.forEach((day) => {
+		dayToEvent[day] = [];
 	});
 
-	let dayToNum = {
-		Poniedzialek: 0,
-		Wtorek: 1,
-		Sroda: 2,
-		Czwartek: 3,
-		Piatek: 4,
-		Sobota: 5,
-		Niedziela: 6
-	};
+	data.events.forEach((v) => {
+		let date = new Date(v.date);
+		let dateEnd = new Date(v.dateEnd);
+		let day = date.getDay();
+
+		v.top = (100 / timeCount) * dateToHours(date);
+		v.height = (100 / timeCount) * (dateToHours(dateEnd) - dateToHours(date));
+		dayToEvent[day].push(v);
+	});
+	for (let [_, events] of Object.entries(dayToEvent)) {
+		console.log(events)
+		events.forEach((v) => {
+			let overlapping = [v]
+			let bottomOverlapping = [v]
+			let topOverlapping = [v]
+			events.forEach((ev) => {
+				if (ev === v) {return}
+				if ((ev.top <= v.top+v.height) && (v.top+v.height < ev.top+ev.height)) {
+					console.log("are overlapping")
+					overlapping.push(ev)
+					bottomOverlapping.push(ev)
+				}
+				if ((ev.top <= v.top) && (v.top < ev.top+ev.height)) {
+					console.log("are overlapping")
+					overlapping.push(ev)
+					topOverlapping.push(ev)
+				}
+			})
+			v.overlapping = overlapping
+			v.topOverlapping = topOverlapping
+			v.bottomOverlapping = bottomOverlapping
+		})
+
+		let leftSet = []
+		events.forEach((v) => {
+			let columns = Math.max(v.topOverlapping.length, v.bottomOverlapping.length)
+			console.log(columns)
+			let width = 100/columns
+			let overlappingWithLeftSet = 0
+			leftSet.forEach((ev) => {
+				if (v.overlapping.indexOf(ev) !== -1) {
+					overlappingWithLeftSet += 1
+				}
+			})
+			v.left = width*overlappingWithLeftSet
+			v.width = width
+			leftSet.push(v)
+		})
+	}
+
+	console.log(dayToEvent);
 	//style="aspect-ratio: 1 / .3"
 </script>
 
 <div class="w-full h-full text-center pt-16">
-	<div class="w-full flex flex-row relative h-64 md:h-96">
-		{#each times as time, i}
+	{#each data.days as day}
+		<div class=" w-full flex flex-row relative h-64 md:h-96 mb-16">
+			{#each times as time, i}
+				<div
+					style="top: calc({i} * (100% - 2rem) / {times.length - 1} + 1.375rem)"
+					class="absolute text-sm text-right w-12 flex items-center"
+				>
+					{time}
+				</div>
+			{/each}
+
 			<div
-				style="top: calc({i} * (100% - 2rem) / {times.length - 1} + 1.375rem)"
-				class="absolute text-sm text-right w-12 flex items-center"
+				class="w-full md:h-96 border-x border-blue-300 dark:border-blue-900  ml-14 lg:mr-14 relative"
 			>
-				{time}
-			</div>
-		{/each}
-
-		<div class="scrollable sm:w-full md:h-96 border-x border-blue-300 dark:border-blue-900  ml-14 lg:mr-14 relative">
-			<div class="min-w-[32rem] w-full h-full flex flex-row">
-				{#each times as time, i}
-					<div
-						style="left: -0.5rem; top: calc({i} * (100% - 2rem) / {times.length -
-							1} + 2rem - 0.1rem); height: 0.1rem; width: calc(100% + 0.5rem)"
-						class="bg-blue-100 dark:bg-blue-300 absolute flex items-center "></div>
-				{/each}
-
-				{#each data.days as day}
-					<div
-						style:width="{100 / data.days.length}%"
-						class=" flex flex-col border-x border-blue-300 dark:border-blue-900 relative"
-					>
+				<div class="w-full h-full flex flex-row">
+					{#each times as time, i}
 						<div
-							style="height: {2}rem;"
-							class="gradient w-full border-b-2 border-blue-300 dark:border-blue-900 flex justify-center items-center font-extrabold"
-						>
-							{day}
-						</div>
-						<div style:height="calc(100% - 2rem)" class="w-full relative">
-							{#each dayEvents[dayToNum[day]] as shedule, ii}
-								<div
-									on:mouseenter={() => {
-										shedule.hover = true;
-									}}
-									on:mouseleave={() => {
-										shedule.hover = false;
-									}}
-									style="top: {(100 * shedule.Yoffset) / 24}%; height: {(100 / 24) *
-										shedule.hours}%"
-									class="w-full absolute rounded-md flex justify-end items-end text-xs"
-								>
-									<Card delay={ii * 100}>
-										<span
-											style="opacity: {shedule.hover ? 0 : 1}; transition: .2s ease opacity"
-											class=" bottom-0 right-0 absolute mr-2 font-bold text-lg z-20 pointer-events-none"
-										>
-											{shedule.title}
-										</span>
-										<span
-											style="opacity: {shedule.hover ? 0 : 1}; transition: .2s ease opacity"
-											class="bg-opacity-70 text-white bg-white white-shadow bottom-0 right-0 absolute text-lg mr-2 z-10 pointer-events-none text-opacity-0 "
-										>
-											{shedule.title}
-										</span>
-										<ImageView>
-											{#each shedule.expand.events as e}
-												<div class="h-full item">
-													<img src={e.icon} class="w-full h-full object-cover" />
-													<span
-														class="top-1/2 left-1/2 absolute font-bold opacity-0 z-10 pointer-events-none text-sm"
-													>
-														{e.name}
-													</span>
-													<span
-														class="top-1/2 left-1/2 absolute  bg-opacity-50 font-bold opacity-0 white-shadow bg-white text-sm text-white pointer-events-none"
-													>
-														{e.name}
-													</span>
+							style="left: -0.5rem; top: calc({i} * (100% - 2rem) / {times.length -
+							1} + 2rem - 0.1rem); height: 0.1rem; width: calc(100% + 0.5rem)"
+							class="bg-blue-100 dark:bg-blue-300 absolute flex items-center "
+						/>
+					{/each}
 
-													<a href="#{e.id}" class="absolute left-0 top-0 w-full h-full"></a>
-												</div>
-											{/each}
-										</ImageView></Card
+						<div
+							style:width="{100}%"
+							class=" flex flex-col border-x border-blue-300 dark:border-blue-900 relative"
+						>
+							<div
+								style="height: {2}rem;"
+								class="gradient w-full border-b-2 border-blue-300 dark:border-blue-900 flex justify-center items-center font-extrabold"
+							>
+								{dayToString[day]}
+							</div>
+							<div style:height="calc(100% - 2rem)" class="w-full relative">
+								{#each dayToEvent[day] as schedule, ii}
+									<div
+										style="top: {schedule.top}%; height: {schedule.height}%; width: {schedule.width}%; left: {schedule.left}%;"
+										class="absolute rounded-md flex justify-center items-center text-xs"
 									>
-								</div>
-							{/each}
+										<div class="aspect-1 max-h-full max-w-full block">
+											<Card delay={ii * 100}>
+												<p style="transform: translate(-50%, -50%)" class="dark:text-white text-black font-bold whitespace-nowrap absolute -top-2 left-1/2 ">{schedule.name}</p>
+												<div class="h-full w-full overflow-clip rounded-md">
+													<img src={schedule.icon} class="w-full h-full object-cover" alt="" />
+													<a href="#{schedule.id}" class="absolute left-0 top-0 w-full h-full" />
+												</div>
+											</Card>
+										</div>
+									</div>
+								{/each}
+							</div>
 						</div>
-					</div>
-				{/each}
+				</div>
 			</div>
 		</div>
-	</div>
+	{/each}
 
 	<div class="w-full pb-16 mt-16 px-4 md:px-16 lg:px-16 text-left relative">
 		{#each data.events as event, ii}
 			<div id={event.id} class="pt-8">
 				<h1 class=" text-2xl font-semibold">{event.name}</h1>
-				<p class=" my-4 break-all">{event.description}</p>
+				<img src={event.icon} class="w-full md:w-1/2" alt="" />
+				<p class=" my-4 break-all whitespace-pre-wrap">{event.description}</p>
 			</div>
 		{/each}
 	</div>
@@ -147,12 +157,12 @@
 
 <style>
 	@media (prefers-color-scheme: light) {
-		.gradient{
+		.gradient {
 			background-image: linear-gradient(white, rgb(147 197 253));
 		}
 	}
 	@media (prefers-color-scheme: dark) {
-		.gradient{
+		.gradient {
 			background-image: linear-gradient(rgb(31 41 55), rgb(30 58 138));
 		}
 	}

@@ -90,7 +90,7 @@
 				opacity: 0.7
 			};
 
-			flames = new Array(100).fill().map((_, i) => {
+			flames = new Array(100).fill().map(() => {
 				return {
 					path: Mainpath * Math.random(),
 					x: origin.x,
@@ -312,7 +312,10 @@
 			</div>
 		</div>
 	</div>
-	<p class="text-center">Krakon to festiwal larpowy odbywajacy sie kazdego roku</p>
+	<p class="text-center">Zapraszamy Was serdecznie na festiwal larpowy KRAK-ON, który odbędzie się 17-19.11.2023 w Centrum Kultury Podgórza w Krakowie.
+		Lubimy grać w larpy i lubimy je organizować. Dlatego organizujemy festiwal, na którym zostanie aż wystawione 21 gier!
+
+		Zapisy na gry ruszą na początku października, więcej informacji o ich przebiegu wkrótce. Nie chcesz przegapić informacji? Zapisz się do <a href="https://newsletter.krak-on.net">newslettara</a></p>
 </div>
 
 <style>

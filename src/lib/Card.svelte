@@ -18,7 +18,7 @@
 
 		style = `transform: scale3d(1.07, 1.07, 1.07)
         rotate3d(${center.y / 100},${-center.x / 100},0,${Math.log(distance) * 0.05}deg );
-        z-index: 10;
+        z-index: 25;
         `;
 	}
 	function normalize() {
@@ -28,7 +28,7 @@
 
 <div
 	in:fly={{ y: 5, duration: 300, delay: delay }}
-	class="w-full h-full z-20"
+	class="w-full h-full z-10 hover:z-20"
 	style="perspective: 150px"
 >
 	<div
@@ -36,7 +36,7 @@
 		on:mousemove={rotateToMouse}
 		on:mouseleave={normalize}
 		{style}
-		class="card overflow-clip"
+		class="card"
 	>
 		<slot />
 	</div>

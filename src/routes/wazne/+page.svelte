@@ -37,7 +37,7 @@
 
 <div>
 	<div class="text-2xl font-extrabold">Dojazd:</div>
-	<p>larpy PIATKOWE odbywają sie na ul. Świętego Krzyża 11/1, 31-028 Kraków, a inne larpy odbywaja sie na Sokolska 11 Kraków, oba czerwone znaczniki sa na mapie</p>
+	<p>larpy PIATKOWE odbywają sie na ul. Świętego Krzyża 11/1, 31-028 Kraków, a pozostałe w Sobotę i Niedzięlę odbywają się na Sokolska 11 Kraków, oba czerwone znaczniki sa na mapie</p>
 	<iframe
 		class="w-full h-[32rem]"
 		style="border:0"

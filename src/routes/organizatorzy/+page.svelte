@@ -15,11 +15,8 @@
 				class="object-cover w-32 h-48"
 				src={user.avatar}
 			/>
-			<pc class="pt-2 text-center italic">
+			<p class="py-2 text-center italic">
 				{user.imie + ' ' + user.nazwisko}
-			</pc>
-			<p class=" py-4 text-center text-sm ">
-				{user.rola}
 			</p>
 			<p class=" text-center text-xs">
 				{user.opis}

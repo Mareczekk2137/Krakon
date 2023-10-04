@@ -10,7 +10,7 @@
 	</a>
 	<div class="flex gap-x-4 md:gap-x-8 ">
 		<div class="flex gap-x-4 md:gap-x-8 flex-col sm:flex-row">
-			<a href="/harmonogram" class="u_hover_sparkle flex-1"> harmnogram </a>
+			<a href="/harmonogram" class="u_hover_sparkle flex-1"> harmonogram </a>
 			<a href="/wazne" class="u_hover_sparkle inline-block"> ważne </a>
 		</div>
 		<div class="flex gap-x-4 md:gap-x-8 flex-col sm:flex-row">

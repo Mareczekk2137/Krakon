@@ -3,9 +3,7 @@
 		"\n" +
 		"UWAGA Piątkowy blok larpowy odbędzie się w siedzibie Fundacji Edukacyjnej Nausika\n" +
 		"\n" +
-		"Larpy w sobotę i niedzielę odbędą się w Centrum Kultury Podgórza:\n" +
-		"\n" +
-		"[A](https://www.google.com/search?client=firefox-b-d&sca_esv=570352775&sxsrf=AM9HkKku1AljeszPy2LVGhLR4ZccBtshDA:1696363226939&q=centrum+kultury+podg%C3%B3rza+adres&ludocid=18425244290565621878&sa=X&ved=2ahUKEwjD0bS81dqBAxVUFBAIHV6jD-QQ6BN6BAhQEAI)dres: ul. Sokolska 13, 30-510 Kraków\n" +
+		"Larpy w sobotę i niedzielę odbędą się w Centrum Kultury Podgórza\n" +
 		"\n" +
 		"WIEK UCZESTNICTWA\n" +
 		"\n" +
@@ -39,12 +37,12 @@
 
 <div>
 	<div class="text-2xl font-extrabold">Dojazd:</div>
-	<p>larpy odbywają sie na ul. Świętego Krzyża 11/1, 31-028 Kraków</p>
+	<p>larpy PIATKOWE odbywają sie na ul. Świętego Krzyża 11/1, 31-028 Kraków, a inne larpy odbywaja sie na Sokolska 11 Kraków, oba czerwone znaczniki sa na mapie</p>
 	<iframe
 		class="w-full h-[32rem]"
 		style="border:0"
 		referrerpolicy="no-referrer-when-downgrade"
-		src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBSYXYeDJp80BzZozHpcLng2g3GZQCgmPY&q=Świętego+Krzyża+11/1,+31-028+Kraków,+Poland"
+		src="https://www.google.com/maps/d/u/0/embed?mid=10hn-YRcODZ91iZaQJ61SQ5CVvJEvxMg&ehbc=2E312F&noprof=1"
 		allowfullscreen>
 	</iframe>
 	<p>{wazne}</p>

@@ -84,7 +84,16 @@
 		});
 	}
 
-	console.log(dayToEvent);
+	let regexUrl = new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi)
+	function makeLinksWork(someText) {
+		let urls = someText.match(regexUrl)
+		if (!urls){return someText}
+		console.log(urls)
+		urls.forEach((url) => {
+			someText = someText.replace(url, '<a href="'+url+'" target="_blank">'+url+'</a>')
+		})
+		return someText
+	}
 	//style="aspect-ratio: 1 / .3"
 </script>
 
@@ -133,7 +142,7 @@
 											<Card delay={ii * 100}>
 												<p
 													style="transform: translate(-50%, -50%)"
-													class="dark:text-white text-black font-bold whitespace-nowrap absolute -top-2 left-1/2 "
+													class="dark:text-white text-black font-bold whitespace-nowrap absolute -top-2 left-1/2 xl:block hidden"
 												>
 													{schedule.name}
 												</p>
@@ -158,7 +167,7 @@
 			<div id={event.id} class="pt-32">
 				<h1 class=" text-2xl font-semibold">{event.name}</h1>
 				<img src={event.icon} class="w-full md:w-1/2" alt="" />
-				<p class=" my-4 whitespace-pre-wrap">{event.description}</p>
+				<p class=" my-4 whitespace-pre-wrap">	{@html makeLinksWork(event.description)}</p>
 			</div>
 		{/each}
 	</div>

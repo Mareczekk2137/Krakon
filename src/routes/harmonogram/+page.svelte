@@ -138,7 +138,7 @@
 										style="top: {schedule.top}%; height: {schedule.height}%; width: {schedule.width}%; left: {schedule.left}%;"
 										class="absolute rounded-md flex justify-center items-center text-xs"
 									>
-										<div class="aspect-1 max-h-full max-w-full block">
+										<div class="aspect-1 h-full block">
 											<Card delay={ii * 100}>
 												<p
 													style="transform: translate(-50%, -50%)"
@@ -146,7 +146,7 @@
 												>
 													{schedule.name}
 												</p>
-												<div class="h-full w-full overflow-clip rounded-md">
+												<div class="h-full w-full overflow-clip rounded-md bg-gray-800">
 													<img src={schedule.icon} class="w-full h-full object-cover" alt="" />
 													<a href="#{schedule.id}" class="absolute left-0 top-0 w-full h-full" />
 												</div>
